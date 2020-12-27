@@ -3,10 +3,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-module.exports = {
-  entry: {
-    main: path.resolve(__dirname, '../src/main.js')
-  },
+const { entry, htmlEntry } = require('./utils')
+
+const isDevlopment = process.env.NODE_ENV === 'development'
+
+const commonConfig = {
+  entry,
   resolve: {
     alias: {
       '@': path.resolve(__dirname, '../src')
@@ -22,6 +24,11 @@ module.exports = {
   },
   module: {
     rules: [
+      // 结合html-webpack-plugin使用 html-webpack-plugin会将其转为模板html,并自动注入js css
+      {
+        test: /\.art$/,
+        loader: 'art-template-loader'
+      },
       {
         test: /\.js$/,
         loader: 'babel-loader',
@@ -62,7 +69,7 @@ module.exports = {
       // 生产环境下使用contenthash
       // 这里不能使用hash，否则mini-css-extract-plugin的hmr会失效 https://github.com/webpack-contrib/mini-css-extract-plugin/issues/391
       // filename: 'css/[name].[hash:6].css'
-      filename: 'css/[name].css'
+      filename: isDevlopment ? 'css/[name].css' : 'css/[name].[contenthash:4].css'
     }),
     new CopyWebpackPlugin([
       {
@@ -70,8 +77,26 @@ module.exports = {
         to: path.resolve(__dirname, '../dist')
       }
     ]),
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '../index.html')
-    })
+    // new HtmlWebpackPlugin({
+    //   template: path.resolve(__dirname, '../index.html')
+    // })
   ]
 }
+
+for (const entryName in htmlEntry) {
+  commonConfig.plugins.push(
+    new HtmlWebpackPlugin({
+      template: htmlEntry[entryName],
+      filename: `${entryName}.html`,
+      entryName,
+      minify: isDevlopment ? {} : {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: false
+      },
+      // 多页面的话，必须设置chunks，否则该插件会将所有的js都注入到每个html中
+      chunks:[entryName]
+    })
+  )
+}
+module.exports = commonConfig
