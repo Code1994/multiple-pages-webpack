@@ -54,6 +54,9 @@ const commonConfig = {
           },
           {
             loader: 'less-loader'
+          },
+          {
+            loader: 'postcss-loader',
           }
         ]
       },
@@ -76,12 +79,12 @@ const commonConfig = {
       // filename: 'css/[name].[hash:6].css'
       filename: isDevlopment ? 'css/[name].css' : 'css/[name].[contenthash:4].css'
     }),
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, '../public'),
-        to: path.resolve(__dirname, '../dist')
-      }
-    ]),
+    // new CopyWebpackPlugin([
+    //   {
+    //     from: path.resolve(__dirname, '../public'),
+    //     to: path.resolve(__dirname, '../dist')
+    //   }
+    // ]),
     // new HtmlWebpackPlugin({
     //   template: path.resolve(__dirname, '../index.html')
     // })
