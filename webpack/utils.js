@@ -27,9 +27,9 @@ const getEntries = (startPath) => {
     resultList = directories
     // 防止用户失误 给出警告和提示
     log(chalk.yellow(`请注意，当前命令行并未按需打包，该操作会默认打包所有项目。如果有疑问，请跟开发同事确认。理想的打包命令如下：
-  yarn build --项目名`))
+    yarn start/build --项目名`))
   }
-  log(resultList)
+  log(chalk.green(`当前打包项目为${resultList}`))
   // 存储入口js文件及模板html文件
   const entry = {}
   const htmlEntry = {}
@@ -59,3 +59,6 @@ const getEntries = (startPath) => {
 }
 
 module.exports = getEntries(startPath)
+
+// TODO:
+// 1.热更新 2.less

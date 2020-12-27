@@ -1,5 +1,5 @@
 import './css/main.css'
-import img from '../../assets/images/WechatIMG8.jpeg'
+import img from '../../assets/images/avatar.jpeg'
 
 const image = document.createElement('img')
 image.src = img

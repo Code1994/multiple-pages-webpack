@@ -11,9 +11,9 @@ const devConfig = merge(commonConfig, {
   devtool: 'cheap-module-eval-source-map',
   devServer: {
     // 配置开发环境访问前缀 默认空字符串 没有设置值时，取output.publicPath 两者作用不同 不存在优先级问题 推荐根据环境 配置不同的output.publicPath
-    publicPath: '/prefix/',
+    publicPath: '/',
     // 设置index.html的寻找路径 默认为当前工作目录 即path.resolve(__dirname, '../')
-    contentBase: path.resolve(__dirname, '../'),
+    // contentBase: path.resolve(__dirname, '../'),
     watchContentBase: true, //保证contentBase下的index.html修改时页面热更新 依赖于live reload。关闭live reload的话 失效。
 
     host: '0.0.0.0', //默认 localhost

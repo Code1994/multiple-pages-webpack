@@ -17,7 +17,7 @@ const commonConfig = {
   },
   output: {
     // 开发环境下 devServer.publicPath`与`output.publicPath`最好保持一致
-    // publicPath: '/output/',
+    publicPath: '/',
     path: path.resolve(__dirname, '../dist'),
     // 开发环境下不要使用chunkhash及contenthash HMR会有冲突
     filename: 'js/[name].[hash:6].js'
@@ -45,7 +45,8 @@ const commonConfig = {
               // mini-css-extract-plugin的loader需要开启hmr
               hmr: true,
               // 热更新失效时
-              reloadAll: true
+              reloadAll: true,
+              publicPath: '../'
             }
           },
           {
@@ -55,11 +56,12 @@ const commonConfig = {
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        loader: 'file-loader',
+        loader: 'url-loader',
         include: [path.resolve(__dirname, '../src/assets/images')],
         options: {
           limit: 10000,
-          name: '/img/[name].[hash:4].[ext]'
+          // FIXME: 为什么这里需要设置相对路径而不能是绝对路径
+          name: isDevlopment ? 'img/[name].[ext]' : 'img/[name].[hash:4].[ext]'
         }
       },
     ]
