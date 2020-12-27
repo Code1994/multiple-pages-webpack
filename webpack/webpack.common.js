@@ -51,6 +51,9 @@ const commonConfig = {
           },
           {
             loader: 'css-loader'
+          },
+          {
+            loader: 'less-loader'
           }
         ]
       },

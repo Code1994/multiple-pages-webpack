@@ -59,6 +59,3 @@ const getEntries = (startPath) => {
 }
 
 module.exports = getEntries(startPath)
-
-// TODO:
-// 1.热更新 2.less
