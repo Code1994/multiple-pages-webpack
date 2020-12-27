@@ -3,7 +3,7 @@ const commonConfig = require('./webpack.common')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const prodConfig = {
-  mode: 'production',
+  mode: 'development',
   plugins: [
     new CleanWebpackPlugin()
   ]

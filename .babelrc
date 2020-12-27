@@ -1,4 +1,15 @@
 {
-  "plugins": [],
-  "presets": []
+  "plugins": [
+    ["@babel/plugin-transform-runtime", {
+      "builtins": "usage",
+      "corejs": 3
+    }]
+  ],
+  "presets": [
+    ["@babel/preset-env", {
+      "targets": {
+        "browsers": ["> 1%", "last 5 versions", "not ie <= 8", "ios 9"]
+      }
+    }]
+  ]
 }

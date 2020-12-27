@@ -25,7 +25,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src')]
+        include: [path.resolve(__dirname, '../src')]
       },
       {
         test: /\.css$/,
@@ -57,8 +57,8 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       {
-        from: path.resolve(__dirname, '../assets'),
-        to: path.resolve(__dirname, '../dist/assets')
+        from: path.resolve(__dirname, '../public'),
+        to: path.resolve(__dirname, '../dist')
       }
     ]),
     new HtmlWebpackPlugin({
