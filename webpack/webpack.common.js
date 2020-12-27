@@ -45,7 +45,16 @@ module.exports = {
             loader: 'css-loader'
           }
         ]
-      }
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'file-loader',
+        include: [path.resolve(__dirname, '../src/assets/images')],
+        options: {
+          limit: 10000,
+          name: '/img/[name].[hash:4].[ext]'
+        }
+      },
     ]
   },
   plugins: [
